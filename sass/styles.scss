@@ -1,5 +1,77 @@
-$dark-color: #aaa;
+$numbers: 12;
+$minutes: 60;
+$clock-size: 400px;
+$color-aguja: #333;
+$color-segundos: #F00;
 
-body{
-  background: $dark-color;
+%number-styles {
+  float: left;
 }
+
+@mixin state-x {
+	@for $i from 0 through $minutes - 1 {
+		.state-#{$i} { 
+			transform: rotate($i*6deg) translate(-50%, 0); 
+		}
+	}
+}
+
+.hours{
+	position: absolute;
+	width: 30px;
+	padding-bottom:  $clock-size / 2; 
+	left: 50%;
+	margin: 0 auto;
+	z-index: 1;
+}
+
+.minutes{
+	padding-bottom:  $clock-size / 2; 	
+	margin: 0 auto;
+	z-index: 2;
+	position:absolute;
+	left: 50%;
+	width: 10px;
+}
+
+.seconds{
+	padding-bottom:  $clock-size / 2; 	
+	margin: 0 auto;
+	z-index: 3;
+	position:absolute;
+	left: 50%;
+	width: 2px;
+}
+
+.hours .no-color-pointer-fill{
+	height: $clock-size / 8;
+}
+
+.hours .color-pointer{
+	background-color: $color-aguja;
+	height: 3 * $clock-size / 8;
+	border-radius: 30px;
+}
+
+.minutes .color-pointer{
+	background-color: $color-aguja;
+	height: $clock-size / 2;
+	border-radius: 10px;
+}
+
+.seconds .color-pointer{
+	background-color: $color-segundos;
+	height: $clock-size / 2;
+	border-radius: 10px;
+}
+
+.analog{
+	background: white;
+	border: 3px solid #333;
+  border-radius: 100%;
+  height: $clock-size;
+  margin: 100px auto 10px;
+  width: $clock-size;
+}
+
+@include state-x;
